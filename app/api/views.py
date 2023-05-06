@@ -4,6 +4,7 @@ from .. import session
 from ..models import Currency, Performance
 from sqlalchemy import text, func
 from .. import engine
+from datetime import date
 import json
 
 @api.route("/")
@@ -15,15 +16,7 @@ def getPrice():
     name = request.args.get('name')
     country = request.args.get('country')
     
-    #currency1 = Currency(name="Kwacha", country="Zambia", valuation=29)
-    #currency2 = Currency(name="USD", country="United States of America", valuation=1)
-    #currency3 = Currency(name="Bond", country="Zimbabwe", valuation=1400)
-
-    #session.add(currency3)
-    #session.commit()
-    
     currency = session.query(Currency).filter(func.lower(Currency.name) == str(name).lower(), func.lower(Currency.country) == str(country).lower()).first()
-    #currency = session.query(Currency).filter(Currency.name==name, Currency.country==country).first()
 
     return json.dumps(currency.valuation)
     with engine.connect() as conn:
@@ -61,19 +54,33 @@ def compare():
         "lowest_value_currency": lowest
     })
 
-@api.route("/performance", methods=["POST", "GET"])
-def performance():
+@api.route("/get_report", methods=["POST", "GET"])
+def get_report():
     name = request.args.get("name")
     country = request.args.get("country")
+    start_date = request.args.get("start_date").split("-")
+    end_date = request.args.get("end_date").split("-")
 
-    currency = session.query(Currency).filter(func.lower(Currency.name) == str(name).lower(), func.lower(Currency.country) == str(country).lower()).first()
+    currencies = session.query(Performance).filter(func.lower(Performance.name) == str(name).lower(), func.lower(Performance.country) == str(country).lower(), Performance.date > date(int(start_date[0]), int(start_date[1]), int(start_date[2]))).all()
+    items = [[i.valuation, i.date] for i in currencies]
 
-    #currency1 = Performance(name="Kwacha", country="Zambia", valuation=29)
-    #currency2 = Performance(name="USD", country="United States of America", valuation=1)
-    #currency3 = Performance(name="Bond", country="Zimbabwe", valuation=1400)
+    highest = 0
 
-    #session.add(currency3)
-    #session.commit()
+    for item in items:
+        if item[0] > highest:
+            highest = item[0]
 
+    lowest = highest
 
-    return
+    for item in items:
+        if item[0] < lowest:
+            lowest = item[0]
+
+    result = highest - lowest
+
+    if result < 0:
+        return "Apprciated!"
+    else:
+        return "Depreciated by " + str(abs(result))
+
+    return json.dumps(items, default=str)

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, Date
 from . import Base
-import datetime
+from datetime import datetime, date
 
 class Currency(Base):
     __tablename__ = "currencies"
@@ -10,7 +10,7 @@ class Currency(Base):
     iso = Column(String(3))
     valuation = Column(Float)
     country = Column(String(50))
-    date_created = Column(DateTime,  default=datetime.datetime.utcnow)
+    date_created = Column(DateTime,  default=datetime.utcnow)
 
     def local_date():
         return
@@ -19,10 +19,11 @@ class Performance(Base):
     __tablename__ = "performance"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
+    name = Column(String(50),)
+    iso = Column(String(3))
     valuation = Column(Float)
-    country = Column(String(50), unique=True)
-    date = Column(Date,  default=datetime.date.today)
+    country = Column(String(50))
+    date = Column(Date,  default=date.today)
 
     def local_date():
         return
@@ -34,7 +35,7 @@ class User(Base):
     name = Column(String(50))
     valuation = Column(Float)
     country = Column(String(50))
-    date_created = Column(DateTime,  default=datetime.datetime.utcnow)
+    date_created = Column(DateTime,  default=datetime.utcnow)
 
     def local_date():
         return

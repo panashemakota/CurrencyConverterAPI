@@ -1,4 +1,5 @@
 import os, json
+from datetime import date
 from flask import Flask
 from config import app_config
 from flask.cli import with_appcontext
@@ -20,17 +21,9 @@ def create_app(config_name):
 
     from app import models
     from .api import api as api_blueprint
-    from .models import Currency
+    from .models import Currency, Performance
     app.register_blueprint(api_blueprint)
 
-    @app.cli.command("create_tables")
-    @with_appcontext
-    def create_tables():
-        Base.metadata.create_all(engine)
-        return
-    
-    app.cli.add_command(create_tables)
-    
     @app.cli.command("drop_tables")
     @with_appcontext
     def drop_tables():
@@ -42,12 +35,26 @@ def create_app(config_name):
     @app.cli.command("insert_data")
     @with_appcontext
     def insert_data():
-        c1 = Currency(name="Kwacha", country="Zambia", valuation=29)
-        c2 = Currency(name="USD", country="United States of America", valuation=1)
-        c3 = Currency(name="Bond", country="Zimbabwe", valuation=1400)
-        c3 = Currency(name="Australian Dollar", country="Australia", valuation=1400)
+        data = [
+            Currency(name="Kwacha", iso="ZMW", country="Zambia", valuation=29),
+            Currency(name="USD", iso="USD", country="United States of America", valuation=1),
+            Currency(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1400),
+            Currency(name="Australian Dollar", iso="AUD", country="Australia", valuation=1400),
+            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=29, date=date(2023, 3, 21)),
+            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=30, date=date(2023, 2, 21)),
+            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=22, date=date(2023, 1, 21)),
+            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=22, date=date(2022, 12, 21)),
+            Performance(name="USD", iso="USD", country="United States of America", valuation=1, date=date(2023, 5, 12)),
+            Performance(name="USD", iso="USD", country="United States of America", valuation=1.5, date=date(2023, 2, 12)),
+            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1400, date=date(2023, 1, 1)),
+            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1800, date=date(2023, 8, 1)),
+            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=800, date=date(2022, 1, 1)),
+            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=300, date=date(2022, 5, 1)),
+            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=400, date=date(2022, 8, 1)),
+            Performance(name="Australian Dollar", iso="AUD", country="Australia", valuation=1400)
+        ]
 
-        session.add_all([c1,c2,c3])
+        session.add_all(data)
         session.commit()
         return
     
