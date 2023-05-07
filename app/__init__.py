@@ -21,7 +21,7 @@ def create_app(config_name):
 
     from app import models
     from .api import api as api_blueprint
-    from .models import Currency, Performance
+    from .models import Currency, Performance, Country
     app.register_blueprint(api_blueprint)
 
     @app.cli.command("drop_tables")
@@ -36,22 +36,30 @@ def create_app(config_name):
     @with_appcontext
     def insert_data():
         data = [
-            Currency(name="Kwacha", iso="ZMW", country="Zambia", valuation=29),
-            Currency(name="USD", iso="USD", country="United States of America", valuation=1),
-            Currency(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1400),
-            Currency(name="Australian Dollar", iso="AUD", country="Australia", valuation=1400),
-            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=29, date=date(2023, 3, 21)),
-            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=30, date=date(2023, 2, 21)),
-            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=22, date=date(2023, 1, 21)),
-            Performance(name="Kwacha", iso="ZMW", country="Zambia", valuation=22, date=date(2022, 12, 21)),
-            Performance(name="USD", iso="USD", country="United States of America", valuation=1, date=date(2023, 5, 12)),
-            Performance(name="USD", iso="USD", country="United States of America", valuation=1.5, date=date(2023, 2, 12)),
-            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1400, date=date(2023, 1, 1)),
-            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=1800, date=date(2023, 8, 1)),
-            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=800, date=date(2022, 1, 1)),
-            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=300, date=date(2022, 5, 1)),
-            Performance(name="Bond", iso="ZWD", country="Zimbabwe", valuation=400, date=date(2022, 8, 1)),
-            Performance(name="Australian Dollar", iso="AUD", country="Australia", valuation=1400)
+            Country(name="Zimbabwe"),
+            Country(name="South Africa"),
+            Country(name="Zambia"),
+            Country(name="Australia"),
+            Currency(name="Bond", iso="ZWD", country_id=1, valuation=1400),
+            Currency(name="Rand", iso="RND", country_id=3, valuation=17),
+            Currency(name="Kwacha", iso="ZMW", country_id=2, valuation=29),
+            Currency(name="Australian Dollar", iso="AUD", country_id=4, valuation=1400),
+            Performance(currency_id=1, country_id=1, valuation=1400, date=date(2023, 1, 1)),
+            Performance(currency_id=1, country_id=1, valuation=1800, date=date(2023, 8, 1)),
+            Performance(currency_id=1, country_id=1, valuation=1840, date=date(2023, 8, 2)),
+            Performance(currency_id=1, country_id=1, valuation=1830, date=date(2023, 8, 5)),
+            Performance(currency_id=1, country_id=1, valuation=1806, date=date(2023, 8, 21)),
+            Performance(currency_id=1, country_id=1, valuation=800, date=date(2022, 1, 1)),
+            Performance(currency_id=1, country_id=1, valuation=300, date=date(2022, 5, 1)),
+            Performance(currency_id=1, country_id=1, valuation=400, date=date(2022, 8, 1)),
+            Performance(currency_id=2, country_id=2, valuation=17, date=date(2022, 5, 1)),
+            Performance(currency_id=2, country_id=2, valuation=19, date=date(2023, 2, 12)),
+            Performance(currency_id=3, country_id=3, valuation=29, date=date(2022, 5, 1)),
+            Performance(currency_id=3, country_id=3, valuation=29, date=date(2023, 3, 21)),
+            Performance(currency_id=3, country_id=3, valuation=30, date=date(2023, 2, 21)),
+            Performance(currency_id=3, country_id=3, valuation=22, date=date(2023, 1, 21)),
+            Performance(currency_id=3, country_id=3, valuation=22, date=date(2022, 12, 21)),
+            Performance(currency_id=4, country_id=4, valuation=8)
         ]
 
         session.add_all(data)
