@@ -12,21 +12,24 @@ from datetime import datetime
 def home():
     return json.dumps("Welcome to Pana's Currency Converter!")
 
-def validateStringInput(s):
+def countStrings(s):
     
     length = 0
     for i in s:
         if re.search('[a-zA-Z]', i):
             length += 1
     
-    if length == 3:
-        return True
-    
-    return False
+    return length
 
 def validateISO(s):
-    if validateStringInput(s) and len(s) == 3:
+    if countStrings(s) == 3 and len(s) == 3:
         return True
+    return False
+
+def validateCountryName(c):
+    if countStrings(c) + c.count(" ") == len(c):
+        return True
+    
     return False
 
 def validateDate(date_text):
@@ -107,7 +110,7 @@ def get_performance_report():
     if iso == None or country_name == None or d1 == None or d2 == None:
         return json.dumps("Invalid arguments!")
     
-    if not validateStringInput(country_name):
+    if not validateCountryName(country_name):
         return json.dumps("Invalid input for country, can only contain letters.")
     
     if not validateISO(iso):
