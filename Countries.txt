@@ -1,0 +1,159 @@
+Arabic dirham
+afghani
+lek
+dram
+Netherlands Antillean guilder
+kwanza
+Argentine peso
+Australian dollar
+guilder
+manat
+Convertible mark
+Barbadian dollar
+taka
+Bulgarian lev
+Bahrain dinar
+Burundi franc
+Bermudian dollar
+Brunei dollar
+boliviano
+Brazilian real
+Bahamian dollar
+ngultrum
+pula
+Belarus rubel
+Belize dollar
+Canadian dollar
+Congolais franc
+Swiss franc
+Cook dollar
+Chilean peso
+Renminbi yuan
+Colombian peso
+colón
+Cuban peso
+Cape Verdean escudo
+Czech krone
+Djibouti franc
+Danish krone
+Dominican peso
+Algerian dinar
+Egypt pound
+nakfa
+birr
+Fiji dollar
+Falklands pound
+Faroese krona
+Sterling pound
+Georgian lari
+Guernsey pound
+Ghana cedi
+Gibraltar pound
+dalasi
+Guinea franc
+quetzal
+Guyana dollar
+Hong Kong dollar
+lempira
+gourde
+Hungarian forint
+Indonesian rupiah
+New Israeli sheqel
+Manx pound
+Indian rupee
+Iraqi dinar
+Iranian rial
+Icelandic krone
+Jersey Sterling pound
+Jamaica dollar
+Jordanian dinar
+Japanese yen
+Kenian schilling
+som
+Cambodian riel
+Kiribati dollar
+Comorian franc
+North Korean won
+South Korean won
+Kuwaiti dinar
+Cayman dollar
+tenge
+kip
+Lebanese pound
+Sri Lanka rupee
+Liberian dollar
+Lesotho loti
+Libyan dinar
+Moroccan dirham
+Moldovan leu
+Malagasy ariary
+denar
+kyat
+tugrik
+Macanese pataca
+Mauritanian ouguiya
+Mauritian rupee
+Maldivian rufiyaa
+Malawian kwacha
+Mexican peso
+ringgit
+metical
+Namibian dollar
+naira
+Córdoba oro
+Norwegian krone
+Nepalese rupee
+New Zealand dollar
+Omani rial
+Panamanian balboa
+Nuevo sol
+kina
+Philippine peso
+Pakistanian rupee
+zloty
+guaraní
+Qatari rial
+Romanian leu
+Serbian dinar
+Russian rubel
+Rwandan franc
+Saudi rial
+Salomon dollar
+Seychelles rupee
+Sudanese pound
+Swedish krone
+Singapore dollar
+St.-Helena pound
+leone
+Somalian shilling
+Surinam dollar
+South Sudanese pound
+dobra
+Syrian pound
+Swazi lilangeni
+Thai baht
+somoni
+Turkmen manat
+Tunesian dinar
+pa'anga
+Turkish lira
+Trinidad and Tobago dollar
+Tuvaluan dollar
+New Taiwan dollar
+Tansanian shilling
+hrywnja
+Ugandan schilling
+US dollar
+Uruguay peso
+Uzbekistan sum
+dong
+vatu
+tala
+Central African franc
+East Caribbean dollar
+West African franc
+Pacific franc
+Jemen rial
+South African rand
+Zambian kwacha
+Zimbabwe dollar

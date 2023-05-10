@@ -5,11 +5,37 @@ from ..models import Currency, Performance, Country
 from sqlalchemy import text, func
 from .. import engine
 from datetime import date
-import json
+import json, re
+from datetime import datetime
 
 @api.route("/")
 def home():
     return json.dumps("Welcome to Pana's Currency Converter!")
+
+def validateStringInput(s):
+    
+    length = 0
+    for i in s:
+        if re.search('[a-zA-Z]', i):
+            length += 1
+    
+    if length == 3:
+        return True
+    
+    return False
+
+def validateISO(s):
+    if validateStringInput(s) and len(s) == 3:
+        return True
+    return False
+
+def validateDate(date_text):
+    try:
+        datetime.strptime(date_text, "%Y-%m-%d")
+    except:
+        return False
+
+    return True
 
 @api.route("/get_price", methods=["POST", "GET"])
 def getPrice():
@@ -17,6 +43,9 @@ def getPrice():
 
     if iso == None:
         return json.dumps("Invalid arguments!")
+    
+    if not validateISO(iso):
+        return json.dumps("Invalid input for ISO, can only contain three letters.")
     
     currency = session.query(Currency).filter(Currency.iso == iso.upper()).first()
 
@@ -32,6 +61,12 @@ def get_evaluation():
 
     if iso_1 == None or iso_2 == None:
         return json.dumps("Invalid arguments!")
+    
+    if not validateISO(iso_1):
+        return json.dumps("Invalid input for the first ISO, can only contain three letters.")
+    
+    if not validateISO(iso_2):
+        return json.dumps("Invalid input for the second ISO, can only contain three letters.")
     
     currency_1 = session.query(Currency).filter(Currency.iso == iso_1.upper()).first()
     currency_2 = session.query(Currency).filter(Currency.iso == iso_2.upper()).first()
@@ -71,6 +106,12 @@ def get_performance_report():
 
     if iso == None or country_name == None or d1 == None or d2 == None:
         return json.dumps("Invalid arguments!")
+    
+    if not validateStringInput(country_name):
+        return json.dumps("Invalid input for country, can only contain letters.")
+    
+    if not validateISO(iso):
+        return json.dumps("Invalid input for ISO, can only contain three letters.")
     
     d1 = [int(i) for i in d1.split("-")]
     d2 = [int(i) for i in d2.split("-")]
@@ -112,6 +153,9 @@ def get_best_performer():
 
     if d == None or specifier == None:
         return json.dumps("Invalid arguments!")
+    
+    if not validateDate(d):
+        return json.dumps("Invalid input for date, should be YYYY-MM-DD")
     
     d = [int(i) for i in d.split("-")]
     stat = None
