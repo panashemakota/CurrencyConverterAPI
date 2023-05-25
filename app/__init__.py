@@ -21,7 +21,7 @@ def create_app(config_name):
 
     from app import models
     from .api import api as api_blueprint
-    from .models import Currency, Performance, Country
+    from .models import Currency, Performance, Country, User
     app.register_blueprint(api_blueprint)
 
     @app.cli.command("drop_tables")
@@ -59,7 +59,8 @@ def create_app(config_name):
             Performance(currency_id=3, country_id=3, valuation=30, date=date(2023, 2, 21)),
             Performance(currency_id=3, country_id=3, valuation=22, date=date(2023, 1, 21)),
             Performance(currency_id=3, country_id=3, valuation=22, date=date(2022, 12, 21)),
-            Performance(currency_id=4, country_id=4, valuation=8)
+            Performance(currency_id=4, country_id=4, valuation=8),
+            User(first_name="Panashe", last_name="Makota", username="pana", email="pana@shingi.com", password="panaheartsshingi", country_id=1)
         ]
 
         session.add_all(data)
