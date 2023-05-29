@@ -116,6 +116,12 @@ def get_performance_report():
     if not validateISO(iso):
         return json.dumps("Invalid input for ISO, can only contain three letters.")
     
+    if not validateDate(d1):
+        return json.dumps("Invalid input for start date, should be YYYY-MM-DD")
+    
+    if not validateDate(d2):
+        return json.dumps("Invalid input for end date, should be YYYY-MM-DD")
+    
     d1 = [int(i) for i in d1.split("-")]
     d2 = [int(i) for i in d2.split("-")]
 
